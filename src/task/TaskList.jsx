@@ -1,5 +1,5 @@
 import { FaStar } from 'react-icons/fa';
-export default function TaskList({ tasks }) {
+export default function TaskList({ tasks, onEdit }) {
     return (
         <div className="overflow-auto">
             <table className="table-fixed overflow-auto xl:w-full">
@@ -34,7 +34,13 @@ export default function TaskList({ tasks }) {
                             key={task.id}
                             className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2"
                         >
-                            <td>{task.isFavorite ? <FaStar color='yellow'/> : <FaStar color='gray'/>}</td>
+                            <td>
+                                {task.isFavorite ? (
+                                    <FaStar color="yellow" />
+                                ) : (
+                                    <FaStar color="gray" />
+                                )}
+                            </td>
                             <td>{task.title}</td>
                             <td>
                                 <div>{task.description}</div>
@@ -53,10 +59,13 @@ export default function TaskList({ tasks }) {
                             <td className="text-center">{task.priority}</td>
                             <td>
                                 <div className="flex items-center justify-center space-x-3">
-                                    <button className="text-red-500">
+                                    <button className="text-red-500 cursor-pointer">
                                         Delete
                                     </button>
-                                    <button className="text-blue-500">
+                                    <button
+                                        onClick={()=>onEdit(task)}
+                                        className="text-blue-500 cursor-pointer"
+                                    >
                                         Edit
                                     </button>
                                 </div>
