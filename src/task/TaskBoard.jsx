@@ -10,9 +10,9 @@ export default function TaskBoard() {
         id: crypto.randomUUID(),
         title: 'Learn React',
         description: 'I love react!!',
-        priority: 'high',
+        priority: 'High',
         tags: ['React', 'dev', 'TS'],
-        isFavorite: false,
+        isFavorite: true,
     }]);
     const [taskToUpdate, setTaskToUpdate] = useState(null);
 
@@ -34,15 +34,37 @@ export default function TaskBoard() {
         setShowAddModal(true);
     }
 
+    function handleDeleteTask(id) {
+        const deleteTask = tasks.filter(task => task.id !== id);
+        setTasks(deleteTask);
+    }
+
+    function handleDeleteAllTask() {
+        setTasks([]);
+    }
+
     return (
         <div className="">
-            {showAddModal && <AddTaskModal taskToUpdate={taskToUpdate} onAdd={handleAddTask} />}
+            {showAddModal && (
+                <AddTaskModal
+                    taskToUpdate={taskToUpdate}
+                    onAdd={handleAddTask}
+                    onCloseModal={() => setShowAddModal((pre) => !pre)}
+                />
+            )}
             <div className="p-2 flex justify-end">
                 <SearchBox />
             </div>
             <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16 flex justify-center  flex-col">
-                <ActionTask  onAddTask = {()=>setShowAddModal(pre=>!pre)} />
-                <TaskList onEdit={handleEditTask} tasks={ tasks}/>
+                <ActionTask
+                    onAddTask={() => setShowAddModal((pre) => !pre)}
+                    onDeleteAllTask={handleDeleteAllTask}
+                />
+                <TaskList
+                    onEdit={handleEditTask}
+                    onDelete={handleDeleteTask}
+                    tasks={tasks}
+                />
             </div>
         </div>
     );
