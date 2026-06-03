@@ -12,22 +12,23 @@ export default function AddTaskModal({onAdd}) {
 
     const handleChange = e => {
         const { name, value } = e.target;
-
-        setTask()
+        setTask(prevTask => ({
+            ...prevTask, [name]: Array.isArray(prevTask[name]) ? value.split(',') : value
+        }))
     }
 
 
     return (
         <div>
             <div className="bg-black w-full h-full opacity-70 absolute z-10 top-0 left-0"></div>
-            <form className="mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11 absolute z-10 top-1/12 left-1/3">
+            <htmlForm className="mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11 absolute z-10 top-1/12 left-1/3">
                 <h2 className="mb-9 text-center text-2xl font-bold text-white lg:mb-11 lg:text-[28px]">
                     Add New Task
                 </h2>
 
                 <div className="space-y-9 text-white lg:space-y-10">
                     <div className="space-y-2 lg:space-y-3">
-                        <label for="title">Title</label>
+                        <label htmlFor="title">Title</label>
                         <input
                             className="block w-full rounded-md bg-[#2D323F] px-3 py-2.5"
                             type="text"
@@ -39,7 +40,7 @@ export default function AddTaskModal({onAdd}) {
                         />
                     </div>
                     <div className="space-y-2 lg:space-y-3">
-                        <label for="description">Description</label>
+                        <label htmlFor="description">Description</label>
                         <textarea
                             className="block min-h-30 w-full rounded-md bg-[#2D323F] px-3 py-2.5 lg:min-h-[180px]"
                             type="text"
@@ -52,7 +53,7 @@ export default function AddTaskModal({onAdd}) {
                     </div>
                     <div className="grid-cols-2 gap-x-4 max-md:space-y-9 md:grid lg:gap-x-10 xl:gap-x-20">
                         <div className="space-y-2 lg:space-y-3">
-                            <label for="tags">Tags</label>
+                            <label htmlFor="tags">Tags</label>
                             <input
                                 className="block w-full rounded-md bg-[#2D323F] px-3 py-2.5"
                                 type="text"
@@ -64,7 +65,7 @@ export default function AddTaskModal({onAdd}) {
                             />
                         </div>
                         <div className="space-y-2 lg:space-y-3">
-                            <label for="priority">Priority</label>
+                            <label htmlFor="priority">Priority</label>
                             <select
                                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                                 name="priority"
@@ -90,7 +91,7 @@ export default function AddTaskModal({onAdd}) {
                         Create new Task
                     </button>
                 </div>
-            </form>
+            </htmlForm>
         </div>
     );
 }
